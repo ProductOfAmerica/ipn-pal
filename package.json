@@ -1,6 +1,6 @@
 {
   "name": "ipn-pal",
-  "version": "0.3.0",
+  "version": "0.3.1",
   "description": "PayPal Instant Payment Notification SDK for Node.js",
   "license": "MIT",
   "repository": "ProductOfAmerica/ipn-pal",

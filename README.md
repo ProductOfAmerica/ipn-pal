@@ -4,7 +4,7 @@ PayPal Instant Payment Notification SDK for Node.js.
 
 ## Install
 
-The easiest way to use **nod** is through the Yeoman Generator.
+Either use `yarn` or `npm` to add the package.
 
 ```sh
 $ yarn add ipn-pal
@@ -86,4 +86,4 @@ The IPN message authentication protocol consists of four steps:
 
 ## License
 
-MIT © [Diego Haz](https://github.com/diegohaz)
+MIT © [Diego Haz](https://github.com/ProductOfAmerica)

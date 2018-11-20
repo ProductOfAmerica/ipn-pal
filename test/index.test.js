@@ -1,3 +1,7 @@
+function wow() {
+  return "Ok";
+}
+
 test("soannoying", () => {
-  expect("Ok".toBe("Ok"));
+  expect(wow().toBe("Ok"));
 });

@@ -30,7 +30,7 @@ import validate from "./validate";
  * @param {Options} options to pass the validator
  * @param {validCallback} cb A successful callback can be called
  */
-export function validator(options, cb) {
+function validator(options, cb) {
   if (!options || options.path === undefined)
     throw new TypeError("options.path must be specified");
 
@@ -56,4 +56,4 @@ export function validator(options, cb) {
   };
 }
 
-export const IPN_ERRORS = IPN_ERROR;
+export default { IPN_ERROR, validator };

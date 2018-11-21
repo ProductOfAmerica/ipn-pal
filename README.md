@@ -27,11 +27,15 @@ var IPN_ERRORS = ipn_pal.IPN_ERRORS;
 
 var app = express();
 
-var optionalCallback = function(err, body){
-  if (!err){
-   var transactionType = body.txn_type;
-   var paymentType = body.payment_type;
-  }else{
+// Use the ipn validator on a specific route
+app.use(ipn_pal.validator({ path: "/your-ipn-webhook", sandbox: true }, function (err, body) {
+  console.log('err', err); // See example below
+  console.log('body', body); // See example below
+  
+  if (!err) {
+    var transactionType = body.txn_type;
+    var paymentType = body.payment_type;
+  } else {
     switch (err) {
       case IPN_ERRORS.BAD_STATUS:
         // Do something here
@@ -41,12 +45,6 @@ var optionalCallback = function(err, body){
         break;
     }
   }
-};
-
-// Use the ipn validator on a specific route
-app.use(ipn_pal.validator({ path: "/your-ipn-webhook", sandbox: true }, function (err, body) {
-  console.log('err', err); // See example below
-  console.log('body', body); // See example below
 }));
 ```
 

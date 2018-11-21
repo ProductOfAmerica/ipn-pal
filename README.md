@@ -10,6 +10,18 @@ Either use `yarn` or `npm` to add the package.
 $ yarn add ipn-pal
 ```
 
+## About IPN-Pal
+The IPN message authentication protocol consists of four steps:
+1. PayPal **HTTPS** POSTs an IPN message to your listener that notifies it of an event.
+2. Your listener returns an empty HTTP 200 response to PayPal immediately.
+3. Your listener **HTTPS** POSTs the complete, unaltered message is sent back to PayPal
+    1. The message must contain the same fields (in the same order) as the original message
+    2. The message must be encoded in the same way as the original message.
+4. PayPal sends a single word back
+    1. Either (a or b)
+        1. VERIFIED (if the message matches the original)
+        2. INVALID (if the message does not match the original).
+
 ## Use
 
 To use this validator, you must ensure that your `path` variable is the same in your options as on the PayPal website.

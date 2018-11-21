@@ -39,7 +39,7 @@ describe("Express methods", () => {
     expect(send.mock.calls.length).toBe(1); // res.status().send() is called
     expect(send.mock.calls[0][0]).toBe("Ok"); // res.status().send("Ok") is passed "Ok"
 
-    expect(end.mock.calls.length).toBe(1); // Make sure .end() is called
+    expect(end.mock.calls.length).toBe(1); // Ensure .end() is called
     expect(end.mock.calls[0][0]).toBeUndefined(); // End shouldn't be passed a value
   });
 

@@ -1,4 +1,4 @@
-import IPN_ERROR from "./ipnError";
+import IPN_ERRORS from "./ipnError";
 import validate from "./validate";
 
 /**
@@ -9,8 +9,9 @@ import validate from "./validate";
  */
 
 /**
- * This callback will be passed the body if successful
- * @callback validCallback
+ * This callback will be passed the body of the request if successful
+ * @callback Callback
+ * @param {string} error
  * @param {object} body
  */
 
@@ -28,11 +29,15 @@ import validate from "./validate";
  *        matches the original) or INVALID (if the message does not match the
  *        original).
  * @param {Options} options to pass the validator
- * @param {validCallback} cb A successful callback can be called
+ * @param {Callback} [cb] A successful callback can be called
  */
-function validator(options, cb) {
+export function validator(options, cb) {
   if (!options || options.path === undefined)
     throw new TypeError("options.path must be specified");
+
+  function callCb(err, data) {
+    if (typeof cb === "function") cb(err, data);
+  }
 
   return (req, res, next) => {
     // Not our webhook route
@@ -41,19 +46,20 @@ function validator(options, cb) {
       return;
     }
 
-    res.status(200).send("OK"); // Send 200 status back to PayPal immediately
+    res.status(200).send("Ok"); // Send 200 status back to PayPal immediately
     res.end();
 
-    validate(options.sandbox, req.body, err => {
-      if (err) {
-        next(IPN_ERROR.VALIDATION_ERROR);
+    validate(!!options.sandbox, req.body, errStr => {
+      if (errStr) {
+        callCb(errStr);
+        next();
         return;
       }
 
-      if (typeof cb === "function") cb(req.body);
+      callCb(null, req.body);
       next();
     });
   };
 }
 
-export default { IPN_ERROR, validator };
+export { IPN_ERRORS };

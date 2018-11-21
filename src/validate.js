@@ -1,7 +1,7 @@
 import request from "request";
-import IPN_ERROR from "./ipnError";
+import IPN_ERRORS from "./ipnError";
 
-export default function validate(sandbox = false, body = {}, cb) {
+export default function validate(sandbox, body = {}, cb) {
   // Prepend 'cmd=_notify-validate' flag to the post string
   let postreq = "cmd=_notify-validate";
 
@@ -28,7 +28,7 @@ export default function validate(sandbox = false, body = {}, cb) {
   // Make a post request to PayPal
   request(options, (error, response, resBody) => {
     if (error || response.statusCode !== 200) {
-      cb(new Error(error || IPN_ERROR.BAD_STATUS));
+      cb(IPN_ERRORS.BAD_STATUS);
       return;
     }
 
@@ -36,9 +36,9 @@ export default function validate(sandbox = false, body = {}, cb) {
     if (resBody.substring(0, 8) === "VERIFIED") {
       cb(null);
     } else if (resBody.substring(0, 7) === "INVALID") {
-      cb(new Error(IPN_ERROR.INVALID_IPN));
+      cb(IPN_ERRORS.INVALID_IPN);
     } else {
-      cb(new Error(IPN_ERROR.UNKNOWN_RESPONSE));
+      cb(IPN_ERRORS.UNKNOWN_RESPONSE);
     }
   });
 }

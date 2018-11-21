@@ -38,10 +38,11 @@ app.use(ipn_pal.validator({ path: '/your-ipn-webhook', sandbox: true }, optional
 
 -   [Options](#options)
     -   [Properties](#properties)
--   [validCallback](#validcallback)
+-   [Callback](#callback)
     -   [Parameters](#parameters)
 -   [validator](#validator)
     -   [Parameters](#parameters-1)
+-   [IPN_ERRORS](#ipn_errors)
 
 ### Options
 
@@ -54,14 +55,15 @@ Type: [Object](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Globa
 -   `path` **[string](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)** The path to your webhook. Must be the same on PayPal
 -   `sandbox` **[boolean](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Boolean)?** Are you using the sandbox environment? Default: false
 
-### validCallback
+### Callback
 
-This callback will be passed the body if successful
+This callback will be passed the body of the request if successful
 
 Type: [Function](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Statements/function)
 
 #### Parameters
 
+-   `error` **[string](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)** 
 -   `body` **[object](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Object)** 
 
 ### validator
@@ -82,7 +84,13 @@ The IPN message authentication protocol consists of four steps:
 #### Parameters
 
 -   `options` **[Options](#options)** to pass the validator
--   `cb` **[validCallback](#validcallback)** A successful callback can be called
+-   `cb` **[Callback](#callback)?** A successful callback can be called
+
+### IPN_ERRORS
+
+IPN_ERRORS
+
+Type: {AWAIT_ERROR: [string](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String), VALIDATION_ERROR: [string](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String), BAD_STATUS: [string](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String), INVALID_IPN: [string](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String), UNKNOWN_RESPONSE: [string](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)}
 
 ## License
 

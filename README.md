@@ -12,22 +12,82 @@ $ yarn add ipn-pal
 
 ## Use
 
-To use this validator
+To use this validator, you must ensure that your `path` variable is the same in your options as on the PayPal website.
+You can test this by going to [the PayPal developer website](https://developer.paypal.com/developer/ipnSimulator/).
+The below configuration should have these settings on the IPN website:
+![IPN Simulator](/.github/ipn-sim.png?raw=true)
 
 ```javascript 1.6
 var express = require('express');
 var bodyParser = require('body-parser');
 var ipn_pal = require('ipn-pal');
 
+var IPN_ERRORS = ipn_pal.IPN_ERRORS;
+
 var app = express();
 
-var optionalCallback = function(data){
-  var transactionType = data.txn_type;
-  
+var optionalCallback = function(err, body){
+  if (!err){
+   var transactionType = body.txn_type;
+   var paymentType = body.payment_type;
+  }else{
+    switch (err) {
+      case IPN_ERRORS.BAD_STATUS:
+        // Do something here
+        break;
+      case IPN_ERRORS.INVALID_IPN:
+        // Do something here
+        break;
+    }
+  }
 };
 
 // Use the ipn validator on a specific route
-app.use(ipn_pal.validator({ path: '/your-ipn-webhook', sandbox: true }, optionalCallback));
+app.use(ipn_pal.validator({ path: "/your-ipn-webhook", sandbox: true }, function (err, body) {
+  console.log('err', err); // See example below
+  console.log('body', body); // See example below
+}));
+```
+
+#### A callback example with test data:
+```sh
+$ err: null
+$ body: { payment_type: 'instant',
+          payment_date: '12:49:23 Nov 20, 2018 PST',
+          payment_status: 'Pending',
+          address_status: 'confirmed',
+          payer_status: 'verified',
+          first_name: 'John',
+          last_name: 'Smith',
+          payer_email: 'buyer@paypalsandbox.com',
+          payer_id: 'TESTBUYERID01',
+          address_name: 'John Smith',
+          address_country: 'United States',
+          address_country_code: 'US',
+          address_zip: '95131',
+          address_state: 'CA',
+          address_city: 'San Jose',
+          address_street: '123 any street',
+          business: 'seller@paypalsandbox.com',
+          receiver_email: 'seller@paypalsandbox.com',
+          receiver_id: 'seller@paypalsandbox.com',
+          residence_country: 'US',
+          item_name: 'something',
+          item_number: 'AK-1234',
+          quantity: '1',
+          shipping: '3.04',
+          tax: '2.02',
+          mc_currency: 'USD',
+          mc_fee: '0.44',
+          mc_gross: '12.34',
+          mc_gross_1: '9.34',
+          txn_type: 'web_accept',
+          txn_id: '657441024',
+          notify_version: '2.1',
+          custom: 'xyz123',
+          invoice: 'abc1234',
+          test_ipn: '1',
+          verify_sign: 'AcZrR69yBSOpZEbp3xyJumBX9WTAJ05Dw-Dqbok8jXqjlzAh8l2yShK' }
 ```
 
 ## API

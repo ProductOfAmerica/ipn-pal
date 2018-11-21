@@ -156,4 +156,4 @@ Type: {AWAIT_ERROR: [string](https://developer.mozilla.org/docs/Web/JavaScript/R
 
 ## License
 
-MIT © [Diego Haz](https://github.com/ProductOfAmerica)
+MIT © [ProductOfAmerica](https://github.com/ProductOfAmerica)

@@ -35,7 +35,6 @@ The below configuration should have these settings on the IPN website:
 
 ```javascript 1.6
 var express = require('express');
-var bodyParser = require('body-parser');
 var ipn_pal = require('ipn-pal');
 
 var IPN_ERRORS = ipn_pal.IPN_ERRORS;

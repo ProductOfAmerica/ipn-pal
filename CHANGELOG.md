@@ -1,3 +1,7 @@
+# [0.6.0](https://github.com/ProductOfAmerica/ipn-pal/compare/v0.5.5...v0.6.0) (2018-11-21)
+
+
+
 ## [0.5.5](https://github.com/ProductOfAmerica/ipn-pal/compare/v0.5.4...v0.5.5) (2018-11-21)
 
 

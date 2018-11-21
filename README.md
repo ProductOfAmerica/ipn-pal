@@ -2,7 +2,7 @@
 
 ![Build](https://travis-ci.org/ProductOfAmerica/ipn-pal.svg?branch=master)
 
-PayPal Instant Payment Notification SDK for Node.js.
+PayPal Instant Payment Notification SDK for Node.js and Express.
 
 ## Install
 

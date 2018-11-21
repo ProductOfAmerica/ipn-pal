@@ -15,6 +15,7 @@ $ yarn add ipn-pal
 To use this validator, you must ensure that your `path` variable is the same in your options as on the PayPal website.
 You can test this by going to [the PayPal developer website](https://developer.paypal.com/developer/ipnSimulator/).
 The below configuration should have these settings on the IPN website:
+
 ![IPN Simulator](/.github/ipn-sim.png?raw=true)
 
 ```javascript 1.6

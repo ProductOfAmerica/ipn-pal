@@ -30,7 +30,7 @@ export function validator(options, cb) {
 
   return (req, res, next) => {
     // Not our webhook route
-    if (req.path !== options.path) {
+    if (req.method !== "POST" || req.path !== options.path) {
       next();
       return;
     }
@@ -39,13 +39,7 @@ export function validator(options, cb) {
     res.end();
 
     validate(!!options.sandbox, req.body, errStr => {
-      if (errStr) {
-        callCb(errStr);
-        next();
-        return;
-      }
-
-      callCb(null, req.body);
+      callCb(errStr, errStr ? undefined : req.body);
       next();
     });
   };

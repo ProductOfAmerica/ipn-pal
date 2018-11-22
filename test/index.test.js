@@ -67,15 +67,9 @@ describe("Express methods", () => {
 });
 
 test("IPN_ERRORS are correct", () => {
-  expect(validator.IPN_ERRORS.AWAIT_ERROR).toEqual(
-    "Failed to wait for IPN validation."
-  );
   expect(validator.IPN_ERRORS.BAD_STATUS).toEqual("Status not OK");
   expect(validator.IPN_ERRORS.INVALID_IPN).toEqual("IPN Message is invalid.");
   expect(validator.IPN_ERRORS.UNKNOWN_RESPONSE).toEqual(
     "Unexpected response body."
-  );
-  expect(validator.IPN_ERRORS.VALIDATION_ERROR).toEqual(
-    "Error validating IPN message."
   );
 });

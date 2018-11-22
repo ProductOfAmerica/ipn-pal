@@ -34,12 +34,11 @@ The below configuration should have these settings on the IPN website:
 ![IPN Simulator](/.github/ipn-sim.png?raw=true)
 
 ```javascript 1.6
-var express = require('express');
 var ipn_pal = require('ipn-pal');
+var express = require('express');
+var app = express();
 
 var IPN_ERRORS = ipn_pal.IPN_ERRORS;
-
-var app = express();
 
 // Use the ipn validator on a specific route
 app.use(ipn_pal.validator({ path: "/your-ipn-webhook", sandbox: true }, function (err, body) {
@@ -55,6 +54,9 @@ app.use(ipn_pal.validator({ path: "/your-ipn-webhook", sandbox: true }, function
         // Do something here
         break;
       case IPN_ERRORS.INVALID_IPN:
+        // Do something here
+        break;
+      case IPN_ERRORS.UNKNOWN_RESPONSE:
         // Do something here
         break;
     }
@@ -153,7 +155,7 @@ This method is the validator for an IPN webhook defined on your server
 
 IPN_ERRORS
 
-Type: {AWAIT_ERROR: [string](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String), VALIDATION_ERROR: [string](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String), BAD_STATUS: [string](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String), INVALID_IPN: [string](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String), UNKNOWN_RESPONSE: [string](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)}
+Type: {BAD_STATUS: [string](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String), INVALID_IPN: [string](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String), UNKNOWN_RESPONSE: [string](https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/String)}
 
 ## License
 

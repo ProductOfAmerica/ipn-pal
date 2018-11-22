@@ -27,7 +27,8 @@ describe("Express methods", () => {
 
   test("Express methods are correctly called with good path", done => {
     const req = {
-      path: "/paths-match"
+      path: "/paths-match",
+      method: "POST"
     };
 
     const next = () => done(); // Ensure that next() is called asynchronously
@@ -58,7 +59,8 @@ describe("Express methods", () => {
 
   test("Callback is called", done => {
     const req = {
-      path: "/paths-match"
+      path: "/paths-match",
+      method: "POST"
     };
 
     const cb = () => done();
